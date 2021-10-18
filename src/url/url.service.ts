@@ -16,4 +16,18 @@ export class UrlShortnerService {
     const shortUrl = new this.urlShort(url);
     return await shortUrl.save();
   }
+
+  async show(short: string): Promise<UrlShortner> {
+    console.log('show', short);
+    const shortUrl = this.urlShort.findOne({ shortUrl: short });
+    return await shortUrl;
+  }
+
+  async update(id: string, body: UrlShortner): Promise<UrlShortner> {
+    return await this.urlShort.findByIdAndUpdate(id, body, { new: true });
+  }
+
+  async delete(id: string): Promise<UrlShortner> {
+    return await this.urlShort.findByIdAndDelete(id);
+  }
 }
